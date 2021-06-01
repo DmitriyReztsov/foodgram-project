@@ -1,0 +1,19 @@
+{% load recipe_tags %}
+
+{% get_tags as tags %}
+<ul class="tags">
+    
+    <li class="tags__item">
+        <a id="{{ tags.0.id }}" class="tags__checkbox tags__checkbox_style_orange {% activate_tag request tags.0 %}" href="{{ request.path }}?{% add_tag request tags.0 %}"></a>
+        <span class="tags__label">{{ tags.0.title }}</span>
+    </li>
+    <li class="tags__item">
+        <a id="{{ tags.1.id }}" class="tags__checkbox tags__checkbox_style_green {% activate_tag request tags.1 %}" href="{{ request.path }}?{% add_tag request tags.1 %}"></a>
+        <span for="lunch" class="tags__label">{{ tags.1.title }}</span>
+    </li>
+    <li class="tags__item">
+        <a id="{{ tags.2.id }}" class="tags__checkbox tags__checkbox_style_purple {% activate_tag request tags.2 %}" href="{{ request.path }}?{% add_tag request tags.2 %}"></a>
+        <label for="dinner" class="tags__label">{{ tags.2.title }}</label>
+    </li>
+
+</ul>

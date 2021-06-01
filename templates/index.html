@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load thumbnail %}
+{% load static %}
+{% block title %}{{ title }}{% endblock %}
+{% block static_css %}
+<link rel="stylesheet" href="{% static 'pages/index.css' %}">
+{% endblock %}
+
+{% block content %}
+
+        <div class="main__header">
+            <h1 class="main__title">Рецепты</h1>
+            
+            {% include "includes/tags_bar.html" %}
+
+        </div>
+        <div class="card-list">
+        {% for post in page_obj %}
+            {% include "post_item.html" with post=post favorities=favorities %}
+        {% endfor %}
+        </div>
+
+        {% if page_obj.has_other_pages %}
+                {% include "includes/paginator.html" with items=page_obj paginator=paginator %}
+        {% endif %}
+
+{% endblock content %}
+
+{% block static_js %}
+    <script src="{% static '/js/components/MainCards.js' %}"></script>
+
+    <script src="{% static '/js/components/Purchases.js' %}"></script>
+    <script src="{% static '/js/components/Favorites.js' %}"></script>
+    <script src="{% static '/js/config/config.js' %}"></script>
+    <script src="{% static '/js/components/CardList.js' %}"></script>
+    <script src="{% static '/js/components/Header.js' %}"></script>
+
+    <script src="{% static '/js/api/Api.js' %}"></script>
+    {% if user.is_authenticated %}
+        <script src="{% static 'indexAuth.js' %}"></script>
+    {% else %}
+        <script src="{% static 'indexNotAuth.js' %}"></script>
+    {% endif %}
+{% endblock %}
