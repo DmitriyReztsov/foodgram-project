@@ -1,7 +1,7 @@
-from django.contrib.auth import get_user_model
 from django import template
+from django.contrib.auth import get_user_model
 
-from recepies.models import Ingredient, Follow, Favorite, ShopingList, Recipe
+from recepies.models import Favorite, Follow, Ingredient, Recipe, ShopingList
 
 User = get_user_model()
 

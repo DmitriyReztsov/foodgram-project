@@ -1,9 +1,10 @@
-from django import template
-from django.contrib.auth import get_user_model
 from urllib.parse import urlencode
 
-from recepies.models import Ingredient, Follow, Favorite, Recipe
-from recepies.models import Tag, ShopingList
+from django import template
+from django.contrib.auth import get_user_model
+
+from recepies.models import (Favorite, Follow, Ingredient, Recipe, ShopingList,
+                             Tag)
 
 User = get_user_model()
 

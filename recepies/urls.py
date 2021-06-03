@@ -1,6 +1,6 @@
 from django.urls import path
 
-from . import views
+from . import utils, views
 
 urlpatterns = [
     path("", views.Index.as_view(), name="index"),
@@ -16,6 +16,6 @@ urlpatterns = [
     path("<str:username>/unfollow/", views.profile_unfollow,
          name="profile_unfollow"),
     path("shopinglist/", views.ShopingListView.as_view(), name="shoping_list"),
-    path("shopinglist/download/", views.shoping_list_download,
+    path("shopinglist/download/", utils.shoping_list_download,
          name="shoping_list_download"),
     ]

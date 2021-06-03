@@ -1,9 +1,9 @@
 
-        {% if t.title == 'завтрак' %}
-            <li class="single-card__item"><span class="badge badge_style_green">{{ t }}</span></li>
-        {% elif t.title == 'обед' %}
+        {% if t.slug == 'brfst' %}
             <li class="single-card__item"><span class="badge badge_style_orange">{{ t }}</span></li>
-        {% elif t.title == 'ужин' %}
+        {% elif t.slug == 'lnch' %}
+            <li class="single-card__item"><span class="badge badge_style_green">{{ t }}</span></li>
+        {% elif t.slug == 'dnr' %}
             <li class="single-card__item"><span class="badge badge_style_purple">{{ t }}</span></li>
         {% endif %}
     

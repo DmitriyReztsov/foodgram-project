@@ -1,8 +1,8 @@
 from django.urls import path
 
-from .views import get_ingredients, add_subscription, remove_subscription
-from .views import add_favorities, remove_favorities, add_purchases
-from .views import remove_purchases
+from .views import (add_favorities, add_purchases, add_subscription,
+                    get_ingredients, remove_favorities, remove_purchases,
+                    remove_subscription)
 
 urlpatterns = [
     path('ingredients/', get_ingredients),

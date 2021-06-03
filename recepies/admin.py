@@ -1,20 +1,22 @@
 from django.contrib import admin
 from django.db.models import Count
 
-from .models import Ingredient, Tag, Recipe, QuantityIngreds, Follow, Favorite
-from .models import ShopingList
+from .models import (Favorite, Follow, Ingredient, QuantityIngreds, Recipe,
+                     ShopingList, Tag)
 
 
-class MembershipInline(admin.TabularInline):
+class QuantityIngredsInline(admin.TabularInline):
     model = QuantityIngreds
     extra = 1
+    min_num = 1
 
 
 class RecipeAdmin(admin.ModelAdmin):
-    inlines = (MembershipInline,)
+    inlines = (QuantityIngredsInline,)
     list_display = ('title', 'author', 'total_favors',)
     list_filter = ('author', 'title', 'tag',)
     readonly_fields = ('total_favors',)
+    autocomplete_fields = ['ingredients']
 
     def total_favors(self, instance):
         result = Favorite.objects.filter(
@@ -28,6 +30,7 @@ class RecipeAdmin(admin.ModelAdmin):
 class IngredientAdmin(admin.ModelAdmin):
     list_display = ('title', 'unit')
     list_filter = ('title',)
+    search_fields = ['title']
 
 
 admin.site.register(Ingredient, IngredientAdmin)

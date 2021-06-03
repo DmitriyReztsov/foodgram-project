@@ -1,10 +1,12 @@
 from django.contrib.auth import get_user_model
+from django.shortcuts import get_object_or_404
+from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .serializers import IngredientSerializer
-from rest_framework import status
 
-from recepies.models import Ingredient, Follow, Favorite, ShopingList, Recipe
+from recepies.models import Favorite, Follow, Ingredient, Recipe, ShopingList
+
+from .serializers import IngredientSerializer
 
 User = get_user_model()
 
@@ -23,7 +25,7 @@ def add_subscription(request):
     if request.user.id != author_id:
         new_follow = Follow.objects.get_or_create(
                         user=request.user,
-                        author=User.objects.get(id=author_id)
+                        author=get_object_or_404(User, id=author_id)
                         )
         return Response({"success": True}, status=status.HTTP_201_CREATED)
     return Response({"success": False}, status=status.HTTP_406_NOT_ACCEPTABLE)
@@ -32,9 +34,10 @@ def add_subscription(request):
 @api_view(['DELETE'])
 def remove_subscription(request, id):
     if request.user.id != id:
-        unfollow = Follow.objects.get(
+        unfollow = get_object_or_404(
+                    Follow,
                     user=request.user,
-                    author=User.objects.get(id=id)
+                    author=get_object_or_404(User, id=id)
                     )
         unfollow.delete()
         return Response({"success": True}, status=status.HTTP_200_OK)
@@ -46,16 +49,17 @@ def add_favorities(request):
     recipe_id = request.data.get('id')
     new_follow = Favorite.objects.get_or_create(
                     user=request.user,
-                    recipe=Recipe.objects.get(id=recipe_id)
+                    recipe=get_object_or_404(Recipe, id=recipe_id)
                     )
     return Response({"success": True}, status=status.HTTP_201_CREATED)
 
 
 @api_view(['DELETE'])
 def remove_favorities(request, id):
-    unfollow = Favorite.objects.get(
+    unfollow = get_object_or_404(
+                    Favorite,
                     user=request.user,
-                    recipe=Recipe.objects.get(id=id)
+                    recipe=get_object_or_404(Recipe, id=id)
                     )
     unfollow.delete()
     return Response({"success": True}, status=status.HTTP_200_OK)
@@ -66,16 +70,17 @@ def add_purchases(request):
     recipe_id = request.data.get('id')
     new_purchase = ShopingList.objects.get_or_create(
                         user=request.user,
-                        recipe=Recipe.objects.get(id=recipe_id)
+                        recipe=get_object_or_404(Recipe, id=recipe_id)
                         )
     return Response({"success": True}, status=status.HTTP_201_CREATED)
 
 
 @api_view(['DELETE'])
 def remove_purchases(request, id):
-    del_purchase = ShopingList.objects.get(
+    del_purchase = get_object_or_404(
+                        ShopingList,
                         user=request.user,
-                        recipe=Recipe.objects.get(id=id)
+                        recipe=get_object_or_404(Recipe, id=id)
                         )
     del_purchase.delete()
     return Response({"success": True}, status=status.HTTP_200_OK)

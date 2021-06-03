@@ -1,15 +1,13 @@
 from django.contrib.auth import get_user_model
-from django.http.response import HttpResponse
-from django.shortcuts import render, get_object_or_404, redirect
-from django.core.paginator import Paginator
-from django.views.generic import ListView, DetailView
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 from django.db import transaction
-from django.db.models import Sum
+from django.shortcuts import get_object_or_404, redirect, render
+from django.views.generic import DetailView, ListView
 
-from .models import Recipe, Ingredient, Tag, QuantityIngreds, Follow, Favorite
-from .models import ShopingList
 from .forms import RecipeForm
+from .models import (Favorite, Follow, Ingredient, QuantityIngreds, Recipe,
+                     ShopingList, Tag)
 
 User = get_user_model()
 
@@ -92,16 +90,6 @@ class SinglePost(DetailView):
 def create_entry(new_entry, request_dict):
     ingred_list = []
     for item in request_dict.items():
-        print(item)
-        if item[0] == 'breakfast':
-            tag = get_object_or_404(Tag, slug='brfst')
-            new_entry.tag.add(tag)
-        if item[0] == 'lunch':
-            tag = get_object_or_404(Tag, slug='lnch')
-            new_entry.tag.add(tag)
-        if item[0] == 'dinner':
-            tag = get_object_or_404(Tag, slug='dnr')
-            new_entry.tag.add(tag)
         if item[0].startswith('nameIngredient'):
             name_ingred = item[1]
         if item[0].startswith('valueIngredient'):
@@ -126,10 +114,9 @@ def create_entry(new_entry, request_dict):
 def create_recipe(request):
     form = RecipeForm(request.POST or None, files=request.FILES or None)
 
-    if form.is_valid():
+    if form.is_valid() and 'nameIngredient_1' in request.POST:
         with transaction.atomic():
             new_entry = form.save(commit=False)
-            new_entry.author = request.user
             new_entry.author = request.user
             new_entry.save()
             create_entry(new_entry, request.POST)
@@ -160,10 +147,9 @@ def post_edit(request, post_id):
                       files=request.FILES or None,
                       instance=recipe)
 
-    if form.is_valid():
+    if form.is_valid() and 'nameIngredient_1' in request.POST:
         with transaction.atomic():
             new_entry = form.save(commit=False)
-            new_entry.author = request.user
             new_entry.author = request.user
             new_entry.save()
             for obj in ingreds:
@@ -176,7 +162,7 @@ def post_edit(request, post_id):
                 recipe.tag.remove(tag)
             create_entry(new_entry, request.POST)
         return redirect('index')
-    print(form.instance.id)
+
     return render(
                 request,
                 "formRecipe.html",
@@ -218,14 +204,14 @@ def profile_follow(request, username):
     if request.user.username != username:
         new_follow = Follow.objects.get_or_create(
                         user=request.user,
-                        author=User.objects.get(username=username))
+                        author=get_object_or_404(User, username=username))
     return redirect('profile', username=username)
 
 
 @login_required
 def profile_unfollow(request, username):
-    author = User.objects.get(username=username)
-    un_follow = Follow.objects.get(user=request.user, author=author)
+    author = get_object_or_404(User, username=username)
+    un_follow = get_object_or_404(Follow, user=request.user, author=author)
     un_follow.delete()
     return redirect('profile', username=username)
 
@@ -237,10 +223,10 @@ class Favorities(ListView):
     paginate_by = 9
     title = 'Избранное'
 
-    ''' Определяем queryset для фильтрации.
-
-    '''
     def get_queryset(self):
+        ''' Определяем queryset для фильтрации.
+
+        '''
         qs = self.request.GET.getlist('tag')
         if qs:
             return Recipe.objects.filter(
@@ -283,25 +269,3 @@ class ShopingListView(ListView):
         context = super().get_context_data(**kwargs)
         context['title'] = self.title
         return context
-
-
-@login_required
-def shoping_list_download(request):
-    list_recipes = Recipe.objects.filter(
-        shoping__in=ShopingList.objects.filter(user=request.user)
-        )
-    ingredients = list_recipes.order_by('ingredients__title').values(
-                'ingredients__title',
-                'ingredients__unit').annotate(
-                total_quantity=Sum('quantityingred__quantity'))
-    content = ''
-    for ingredient in ingredients:
-        print(ingredient)
-        content += (f'{ingredient["ingredients__title"]}'
-                    f' - {ingredient["total_quantity"]}'
-                    f' {ingredient["ingredients__unit"]}\n')
-    response = HttpResponse(content, content_type='text/plain')
-    response['Content-Disposition'] = 'attachment; filename={0}'.format(
-                                        'shopping_list.txt'
-                                        )
-    return response
