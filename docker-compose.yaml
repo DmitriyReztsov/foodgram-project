@@ -12,7 +12,7 @@ services:
     env_file:
       - ./.env
   web:
-    build: .
+    image: reztsovd21/yamdb-final:latest #<--- назвать правильно!!!
     restart: always
     volumes:
     - static_value:/code/static/
