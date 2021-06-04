@@ -12,7 +12,7 @@ services:
     env_file:
       - ./.env
   web:
-    image: reztsovd21/yamdb-final:latest #<--- назвать правильно!!!
+    image: reztsovd21/foodgram-project:latest
     restart: always
     volumes:
     - static_value:/code/static/
