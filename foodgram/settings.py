@@ -98,7 +98,6 @@ REST_FRAMEWORK = {
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "staticfiles"),
-    os.path.join(BASE_DIR, "recepies/staticfiles"),
 ]
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
