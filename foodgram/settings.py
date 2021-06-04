@@ -67,7 +67,7 @@ WSGI_APPLICATION = 'foodgram.wsgi.application'
 }'''
 
 DATABASES = {
-	'default': env.db(),
+    'default': env.db(),
 }
 
 AUTH_PASSWORD_VALIDATORS = [
