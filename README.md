@@ -1,5 +1,6 @@
 # Foodgram-project
 Foodgram
+IP: http://84.252.137.97/
 
 ![Foodgram-project workflow](https://github.com/DmitriyReztsov/foodgram-project /actions/workflows/main.yml/badge.svg)
 
