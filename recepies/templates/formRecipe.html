@@ -37,27 +37,27 @@
 
                         <div class="tags__item">
                             {% if "brfst" in tags %}
-                                <input type="checkbox" name="tags" value="brfst" id="id_tags_0" class="tags__checkbox tags__checkbox_style_orange" checked>
+                                <input type="checkbox" name="breakfast" id="id_breakfast" class="tags__checkbox tags__checkbox_style_orange" checked>
                             {% else %}
-                                <input type="checkbox" name="tags" value="brfst" id="id_tags_0" class="tags__checkbox tags__checkbox_style_orange">
+                                <input type="checkbox" name="breakfast" id="id_breakfast" class="tags__checkbox tags__checkbox_style_orange">
                             {% endif %}
-                            <label for="id_tags_0" class="tags__label">{{ form.tags.field.choices.0.1 }}</label>
+                            <label for="id_breakfast" class="tags__label">Завтрак</label>
                         </div>
                         <div class="tags__item">
                             {% if "lnch" in tags %}
-                                <input type="checkbox" name="tags" value="lnch" id="id_tags_1" class="tags__checkbox tags__checkbox_style_green" checked>
+                                <input type="checkbox" name="lunch" id="id_lunch" class="tags__checkbox tags__checkbox_style_green" checked>
                             {% else %}
-                                <input type="checkbox" name="tags" value="lnch" id="id_tags_1" class="tags__checkbox tags__checkbox_style_green">
+                                <input type="checkbox" name="lunch" id="id_lunch" class="tags__checkbox tags__checkbox_style_green">
                             {% endif %}
-                            <label for="id_tags_1" class="tags__label">{{ form.tags.field.choices.1.1 }}</label>
+                            <label for="id_lunch" class="tags__label">Обед</label>
                         </div>
                         <div class="tags__item">
                             {% if "dnr" in tags %}
-                                <input type="checkbox" name="tags" value="dnr" id="id_tags_2" class="tags__checkbox tags__checkbox_style_purple" checked>
+                                <input type="checkbox" name="dinner" id="id_dinner" class="tags__checkbox tags__checkbox_style_purple" checked>
                             {% else %}
-                                <input type="checkbox" name="tags" value="dnr" id="id_tags_2" class="tags__checkbox tags__checkbox_style_purple">
+                                <input type="checkbox" name="dinner" id="id_dinner" class="tags__checkbox tags__checkbox_style_purple">
                             {% endif %}
-                            <label for="id_tags_2" class="tags__label">{{ form.tags.field.choices.2.1 }}</label>
+                            <label for="id_dinner" class="tags__label">Ужин</label>
                         </div>
 
                     </div>

@@ -90,6 +90,15 @@ class SinglePost(DetailView):
 def create_entry(new_entry, request_dict):
     ingred_list = []
     for item in request_dict.items():
+        if item[0] == 'breakfast':
+            tag = get_object_or_404(Tag, slug='brfst')
+            new_entry.tag.add(tag)
+        if item[0] == 'lunch':
+            tag = get_object_or_404(Tag, slug='lnch')
+            new_entry.tag.add(tag)
+        if item[0] == 'dinner':
+            tag = get_object_or_404(Tag, slug='dnr')
+            new_entry.tag.add(tag)
         if item[0].startswith('nameIngredient'):
             name_ingred = item[1]
         if item[0].startswith('valueIngredient'):
