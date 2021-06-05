@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load thumbnail %}
+{% load static %}
+{% block title %}Об авторе{% endblock %}
+{% block static_css %}
+<link rel="stylesheet" href="{% static 'pages/index.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="custom-center-block">
+            <p class="custom-text-block">Привет, меня зовут Дмитрий и этим сайтом я заканчиваю обучение в Яндекс.Практикуме на факультете
+                Python-разработчика.<br/>
+                За время обучения я изучил Python и Django, научился работать с Django REST.<br/>
+                Мы изучали алгоритмы и основные моменты, связанные с инфраструктурой веб-разработки (Docker, NGINX, PostgreSQL).
+                Если вы заходите со мной связаться, это можно сделать по адресу rezcov_d@mail.ru</p>
+        <div class="custom-button-block">
+            <a class="button button_style_blue" href="{% url 'index' %}">Перейти на главную</a>
+        </div>
+    </div>
+
+
+    {% endblock content %}

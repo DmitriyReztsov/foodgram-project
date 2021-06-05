@@ -59,5 +59,4 @@ def filter_tag(request):
 
 @register.simple_tag()
 def purchase_counter(request):
-    print(request)
     return ShopingList.objects.filter(user=request.user).count()
