@@ -11,7 +11,7 @@ SECRET_KEY = env('SECRET_KEY')
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['84.252.137.97', 'localhost', 'web:8000', 'localhost:8000']
+ALLOWED_HOSTS = ['84.252.137.97', 'localhost', 'web:8000', 'localhost:8000', 'web']
 
 INSTALLED_APPS = [
     'recepies.apps.RecepiesConfig',
