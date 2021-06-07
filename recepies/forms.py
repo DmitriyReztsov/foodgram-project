@@ -11,8 +11,7 @@ class RecipeForm(forms.ModelForm):
                     required=False,
                     validators=[MinValueValidator(1)]
                     )
-    picture = forms.ImageField(required=False)
-    
+
     class Meta:
         model = Recipe
         fields = ['title', 'cooking_time', 'text', 'picture']
