@@ -21,6 +21,6 @@ class RecipeForm(forms.ModelForm):
         error_messages = {
             'cooking_time': {
                 'min_value': _('Готовим по земному времени'
-                               '- не менее %(limit_value) минуты'),
+                               '- не менее 1 минуты'),
             },
         }

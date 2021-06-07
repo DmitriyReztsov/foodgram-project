@@ -95,9 +95,11 @@ def valid_ingreds(form, request_dict):
             i += 1
             if int(item[1]) <= 0:
                 response = False and response
-                form.add_error('valueIngred',
-                               'Ноль и отрицательные значения недопустимы по'
-                               'закону сохранения материи.')
+                form.add_error(
+                    "valueIngred",
+                    "Ноль и отрицательные значения недопустимы по закону "
+                    "сохранения материи."
+                    )
             else:
                 response = True and response
     if i == 0:
