@@ -1,3 +1,4 @@
+import re
 from django import forms
 from django.core.validators import MinValueValidator
 from django.utils.translation import ugettext as _
@@ -10,7 +11,8 @@ class RecipeForm(forms.ModelForm):
                     required=False,
                     validators=[MinValueValidator(1)]
                     )
-
+    picture = forms.ImageField(required=False)
+    
     class Meta:
         model = Recipe
         fields = ['title', 'cooking_time', 'text', 'picture']
