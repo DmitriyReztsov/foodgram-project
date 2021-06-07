@@ -23,7 +23,7 @@
         </div>
         {% if profile_user != request.user and request.user.is_authenticated %}
         <div class="author-subscribe" data-author="{{ profile_user.id }}">
-            {% if not follow %}
+            {% if follow %}
                 <p style="padding: 0 0 2em 0;"><button class="button button_style_light-blue button_size_subscribe" name="subscribe" data-out>Подписаться на автора</button></p>
                 {% else %}
                 <p style="padding: 0 0 2em 0;"><button class="button button_style_light-blue button_size_subscribe" name="subscribe">Отписаться от автора</button></p>
