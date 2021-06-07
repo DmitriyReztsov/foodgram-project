@@ -5,9 +5,9 @@ from django.contrib.auth.admin import UserAdmin
 User = get_user_model()
 
 
-class CustomUserAdmin(UserAdmin):
+class UserAdmin(UserAdmin):
     list_filter = ('email', 'username',)
 
 
 admin.site.unregister(User)
-admin.site.register(User, CustomUserAdmin)
+admin.site.register(User, UserAdmin)

@@ -23,7 +23,9 @@
                             {% for items in page.author.recipe_set.all|slice:"3" %}
                                 <li class="card-user__item">
                                     <div class="recipe">
-                                        <img src="{{ items.picture.url }}" alt="какой-то-текст" class="recipe__image">
+                                        {% if items.picture %}
+                                            <img src="{{ items.picture.url }}" alt="какой-то-текст" class="recipe__image">
+                                        {% endif %}
                                         <h3 class="recipe__title">{{ items.title }}</h3>
                                         <p class="recipe__text"><span class="icon-time"></span> {{ items.cooking_time }} мин.</p>
                                     </div>

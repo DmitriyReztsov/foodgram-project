@@ -87,6 +87,18 @@ class SinglePost(DetailView):
         return context
 
 
+def valid_ingreds(form, request_dict):
+    response = False
+    for item in request_dict.items():
+        if item[0].startswith('valueIngredient'):
+            if int(item[1]) > 0:
+                response = response and True
+            else:
+                form.add_error('valueIngred',
+                               'Ноль и отрицательные значения недопустимы по'
+                               'закону сохранения материи.')
+    return response
+
 def create_entry(new_entry, request_dict):
     ingred_list = []
     for item in request_dict.items():
@@ -123,7 +135,7 @@ def create_entry(new_entry, request_dict):
 def create_recipe(request):
     form = RecipeForm(request.POST or None, files=request.FILES or None)
 
-    if form.is_valid() and 'nameIngredient_1' in request.POST:
+    if form.is_valid() and valid_ingreds(form, request.POST):
         with transaction.atomic():
             new_entry = form.save(commit=False)
             new_entry.author = request.user
@@ -156,7 +168,7 @@ def post_edit(request, post_id):
                       files=request.FILES or None,
                       instance=recipe)
 
-    if form.is_valid() and 'nameIngredient_1' in request.POST:
+    if form.is_valid() and valid_ingreds(form, request.POST):
         with transaction.atomic():
             new_entry = form.save(commit=False)
             new_entry.author = request.user
