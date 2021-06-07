@@ -88,15 +88,20 @@ class SinglePost(DetailView):
 
 
 def valid_ingreds(form, request_dict):
-    response = False
+    i = 0
+    response = True
     for item in request_dict.items():
         if item[0].startswith('valueIngredient'):
-            if int(item[1]) > 0:
-                response = response and True
-            else:
+            i += 1
+            if int(item[1]) <= 0:
+                response = False and response
                 form.add_error('valueIngred',
                                'Ноль и отрицательные значения недопустимы по'
                                'закону сохранения материи.')
+            else:
+                response = True and response
+    if i == 0:
+        response = False
     return response
 
 def create_entry(new_entry, request_dict):
