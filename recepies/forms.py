@@ -1,4 +1,3 @@
-import re
 from django import forms
 from django.core.validators import MinValueValidator
 from django.utils.translation import ugettext as _

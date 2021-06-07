@@ -103,8 +103,13 @@ def valid_ingreds(form, request_dict):
             else:
                 response = True and response
     if i == 0:
+        form.add_error(
+                    'valueIngred',
+                    'Положи хоть корочку хлеба.'
+                    )
         response = False
     return response
+
 
 def create_entry(new_entry, request_dict):
     ingred_list = []
