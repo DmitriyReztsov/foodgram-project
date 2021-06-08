@@ -35,11 +35,11 @@ docker-compose exec web python manage.py collectstatic --no-input
 docker-compose exec web python manage.py dumpdata > fixtures.json
 ```
 Для подгрузки файла с настройками .env загрузите файл на сервер и выполните следующие команды для переноса .env внутрь контейнера:
-'''sh
+```sh
 sudo docker ps
 sudo docker exec -it <CONTAINER_ID> bash
 sudo docker cp .env <CONTAINER_ID>:/code/
-'''
+```
 
 Перед первым запуском зайдите в панель администратора и заполните модель Объекты тегов следующими значениями:
 | Тег        | Слаг        |
